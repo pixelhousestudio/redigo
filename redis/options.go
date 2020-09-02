@@ -117,28 +117,28 @@ func WithKey(key string) CommandOptions {
 	}
 }
 
-// WithOldKey is set key
+// WithOldKey is old key
 func WithOldKey(key string) CommandOptions {
 	return func(options *Options) {
 		options.oldKey = key
 	}
 }
 
-// WithKeyValue is set key
+// WithKeyValue is key value
 func WithKeyValue(keyValue string) CommandOptions {
 	return func(options *Options) {
 		options.keyValue = keyValue
 	}
 }
 
-// WithCount is set key
+// WithCount is count argument
 func WithCount(count int) CommandOptions {
 	return func(options *Options) {
 		options.count = count
 	}
 }
 
-// WithData is set key
+// WithData is data of key
 func WithData(data interface{}) CommandOptions {
 	return func(options *Options) {
 		options.data = data
