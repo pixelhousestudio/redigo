@@ -25,12 +25,14 @@ type Options struct {
 	oldKey            string
 	keyValue          string
 	data              interface{}
+	isCount           bool
 	count             int // for lrem
 	expireSecond      int64
 	expireMilliSecond int64
 	notExist          bool
 	exist             bool
 	keepTTL           int
+	isRange           bool
 	rangeLower        int
 	rangeUpper        int
 }
@@ -47,6 +49,95 @@ func NewCommandOptions() *Options {
 // CommandOptions is function options
 type CommandOptions func(*Options)
 
+func (options *Options) setKey(key string) error {
+	if key != "" {
+		options.key = key
+		return nil
+	}
+
+	return fmt.Errorf("Error key is empty")
+}
+
+func (options *Options) setOldKey(key string) error {
+	if key != "" {
+		options.oldKey = key
+		return nil
+	}
+
+	return fmt.Errorf("Error old key is empty")
+}
+
+func (options *Options) setKeyValue(keyValue string) error {
+	if keyValue != "" {
+		options.keyValue = keyValue
+		return nil
+	}
+
+	return fmt.Errorf("Error key value is empty")
+}
+
+func (options *Options) setData(data interface{}) error {
+	if data != nil {
+		options.data = data
+		return nil
+	}
+
+	return fmt.Errorf("Error data of key is empty")
+}
+
+func (options *Options) setIsCount() error {
+	options.isCount = !options.isCount
+	return nil
+}
+
+func (options *Options) setCount(count int) error {
+	options.count = count
+	return nil
+}
+
+func (options *Options) setExpireS(exp int64) error {
+	if exp > -1 {
+		options.expireSecond = exp
+		return nil
+	}
+
+	return fmt.Errorf("Error expired of key is empty")
+}
+
+func (options *Options) setExpireM(exp int64) error {
+	if exp > -1 {
+		options.expireMilliSecond = exp
+		return nil
+	}
+
+	return fmt.Errorf("Error expired of key is empty")
+}
+
+func (options *Options) setExist(exist bool) error {
+	options.exist = exist
+
+	return nil
+}
+
+func (options *Options) setNotExist(notExist bool) error {
+	options.notExist = notExist
+
+	return nil
+}
+
+func (options *Options) setIsRange() error {
+	options.isRange = true
+
+	return nil
+}
+
+func (options *Options) setRange(lower, upper int) error {
+	options.rangeUpper = upper
+	options.rangeLower = lower
+
+	return nil
+}
+
 // Build is generate options
 func (options *Options) Build() ([]interface{}, error) {
 	var op []interface{}
@@ -62,21 +153,20 @@ func (options *Options) Build() ([]interface{}, error) {
 		return nil, fmt.Errorf("Error invalid. Please choose expire with second or expire with millisecond, dont take all")
 	}
 
+	if options.oldKey != "" {
+		op = append(op, options.oldKey)
+	}
+
 	if options.key != "" {
 		op = append(op, options.key)
 	}
 
-	if options.oldKey != "" {
-		op = append(op, options.oldKey)
+	if options.isCount {
+		op = append(op, options.count)
 	}
 
 	if options.keyValue != "" {
 		op = append(op, options.keyValue)
-	}
-
-	// For lrem command
-	if options.oldKey != "" {
-		op = append(op, options.oldKey)
 	}
 
 	if options.data != nil {
@@ -106,6 +196,11 @@ func (options *Options) Build() ([]interface{}, error) {
 		op = append(op, NotExitOption)
 	}
 
+	if options.isRange {
+		op = append(op, options.rangeLower)
+		op = append(op, options.rangeUpper)
+	}
+
 	//return fmt.Sprintf("%s", strings.Join(op, ",")), nil
 	return op, nil
 }
@@ -113,71 +208,72 @@ func (options *Options) Build() ([]interface{}, error) {
 // WithKey is set key
 func WithKey(key string) CommandOptions {
 	return func(options *Options) {
-		options.key = key
+		options.setKey(key)
 	}
 }
 
 // WithOldKey is old key
 func WithOldKey(key string) CommandOptions {
 	return func(options *Options) {
-		options.oldKey = key
+		options.setOldKey(key)
 	}
 }
 
 // WithKeyValue is key value
 func WithKeyValue(keyValue string) CommandOptions {
 	return func(options *Options) {
-		options.keyValue = keyValue
+		options.setKeyValue(keyValue)
 	}
 }
 
 // WithCount is count argument
 func WithCount(count int) CommandOptions {
 	return func(options *Options) {
-		options.count = count
+		options.setIsCount()
+		options.setCount(count)
 	}
 }
 
 // WithData is data of key
 func WithData(data interface{}) CommandOptions {
 	return func(options *Options) {
-		options.data = data
+		options.setData(data)
 	}
 }
 
 // WithExpireSecond set expire time
-func WithExpireSecond(ex int64) CommandOptions {
+func WithExpireSecond(exp int64) CommandOptions {
 	return func(options *Options) {
-		options.expireSecond = ex
+		options.setExpireS(exp)
 	}
 
 }
 
 // WithExpireMillisecond is expire in millisecond
-func WithExpireMillisecond(ex int64) CommandOptions {
+func WithExpireMillisecond(exp int64) CommandOptions {
 	return func(options *Options) {
-		options.expireMilliSecond = ex
+		options.setExpireM(exp)
 	}
 }
 
 // WithExist is exist key
 func WithExist() CommandOptions {
 	return func(options *Options) {
-		options.exist = true
+		options.setExist(true)
 	}
 }
 
 // WithNotExist is not exits key
 func WithNotExist() CommandOptions {
 	return func(options *Options) {
-		options.notExist = true
+		options.setNotExist(true)
 	}
 }
 
 // WithRange is not exits key
 func WithRange(lower, upper int) CommandOptions {
 	return func(options *Options) {
-		options.rangeLower = lower
-		options.rangeUpper = upper
+		options.setIsRange()
+		options.setRange(lower, upper)
 	}
 }
