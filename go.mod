@@ -1,4 +1,4 @@
-module github.com/muhfaris/redigo
+module github.com/pixelhousestudio/redigo
 
 go 1.14
 

@@ -3,34 +3,34 @@
 Redigo
 ======
 
-[![Build Status](https://travis-ci.org/muhfaris/redigo.svg?branch=master)](https://travis-ci.org/muhfaris/redigo)
-[![GoDoc](https://godoc.org/github.com/muhfaris/redigo/redis?status.svg)](https://godoc.org/github.com/muhfaris/redigo/redis)
+[![Build Status](https://travis-ci.org/pixelhousestudio/redigo.svg?branch=master)](https://travis-ci.org/pixelhousestudio/redigo)
+[![GoDoc](https://godoc.org/github.com/pixelhousestudio/redigo/redis?status.svg)](https://godoc.org/github.com/pixelhousestudio/redigo/redis)
 
 Redigo is a [Go](http://golang.org/) client for the [Redis](http://redis.io/) database.
 
 Features
 -------
 
-* A [Print-like](http://godoc.org/github.com/muhfaris/redigo/redis#hdr-Executing_Commands) API with support for all Redis commands.
-* [Pipelining](http://godoc.org/github.com/muhfaris/redigo/redis#hdr-Pipelining), including pipelined transactions.
-* [Publish/Subscribe](http://godoc.org/github.com/muhfaris/redigo/redis#hdr-Publish_and_Subscribe).
-* [Connection pooling](http://godoc.org/github.com/muhfaris/redigo/redis#Pool).
-* [Script helper type](http://godoc.org/github.com/muhfaris/redigo/redis#Script) with optimistic use of EVALSHA.
-* [Helper functions](http://godoc.org/github.com/muhfaris/redigo/redis#hdr-Reply_Helpers) for working with command replies.
+* A [Print-like](http://godoc.org/github.com/pixelhousestudio/redigo/redis#hdr-Executing_Commands) API with support for all Redis commands.
+* [Pipelining](http://godoc.org/github.com/pixelhousestudio/redigo/redis#hdr-Pipelining), including pipelined transactions.
+* [Publish/Subscribe](http://godoc.org/github.com/pixelhousestudio/redigo/redis#hdr-Publish_and_Subscribe).
+* [Connection pooling](http://godoc.org/github.com/pixelhousestudio/redigo/redis#Pool).
+* [Script helper type](http://godoc.org/github.com/pixelhousestudio/redigo/redis#Script) with optimistic use of EVALSHA.
+* [Helper functions](http://godoc.org/github.com/pixelhousestudio/redigo/redis#hdr-Reply_Helpers) for working with command replies.
 
 Documentation
 -------------
 
-- [API Reference](http://godoc.org/github.com/muhfaris/redigo/redis)
-- [FAQ](https://github.com/muhfaris/redigo/wiki/FAQ)
-- [Examples](https://godoc.org/github.com/muhfaris/redigo/redis#pkg-examples)
+- [API Reference](http://godoc.org/github.com/pixelhousestudio/redigo/redis)
+- [FAQ](https://github.com/pixelhousestudio/redigo/wiki/FAQ)
+- [Examples](https://godoc.org/github.com/pixelhousestudio/redigo/redis#pkg-examples)
 
 Installation
 ------------
 
 Install Redigo using the "go get" command:
 
-    go get github.com/muhfaris/redigo
+    go get github.com/pixelhousestudio/redigo
 
 The Go distribution is Redigo's only dependency.
 
@@ -45,7 +45,7 @@ Related Projects
 Contributing
 ------------
 
-See [CONTRIBUTING.md](https://github.com/muhfaris/redigo/blob/master/.github/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/pixelhousestudio/redigo/blob/master/.github/CONTRIBUTING.md).
 
 License
 -------

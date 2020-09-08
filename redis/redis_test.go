@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/muhfaris/redigo/redis"
+	"github.com/pixelhousestudio/redigo/redis"
 )
 
 type timeoutTestConn int
