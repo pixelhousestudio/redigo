@@ -298,6 +298,6 @@ func WithMinInf() CommandOptions {
 // WithMaxInf is max infinity
 func WithMaxInf() CommandOptions {
 	return func(options *Options) {
-		options.minInf = "+inf"
+		options.maxInf = "+inf"
 	}
 }
