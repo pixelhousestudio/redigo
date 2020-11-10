@@ -35,6 +35,8 @@ type Options struct {
 	isRange           bool
 	rangeLower        int
 	rangeUpper        int
+	minInf            string
+	maxInf            string
 }
 
 // NewCommandOptions is build new options
@@ -201,6 +203,14 @@ func (options *Options) Build() ([]interface{}, error) {
 		op = append(op, options.rangeUpper)
 	}
 
+	if options.minInf != "" {
+		op = append(op, options.minInf)
+	}
+
+	if options.maxInf != "" {
+		op = append(op, options.maxInf)
+	}
+
 	//return fmt.Sprintf("%s", strings.Join(op, ",")), nil
 	return op, nil
 }
@@ -275,5 +285,19 @@ func WithRange(lower, upper int) CommandOptions {
 	return func(options *Options) {
 		options.setIsRange()
 		options.setRange(lower, upper)
+	}
+}
+
+// WithMinInf is min infinity
+func WithMinInf() CommandOptions {
+	return func(options *Options) {
+		options.minInf = "-inf"
+	}
+}
+
+// WithMaxInf is max infinity
+func WithMaxInf() CommandOptions {
+	return func(options *Options) {
+		options.minInf = "+inf"
 	}
 }
